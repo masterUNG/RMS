@@ -1,11 +1,14 @@
 package com.virtualsiamu.rms;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -112,6 +115,18 @@ public class Register extends AppCompatActivity {
                         android.R.layout.simple_list_item_1, majorStrings);
                 mySpinner.setAdapter(stringArrayAdapter);
 
+                mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        codeMString = codeMStrings[i];
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        codeMString = codeMStrings[0];
+                    }
+                });
+
             } catch (Exception e) {
                 Log.d("25AugV1", "e onPost ==> " + e.toString());
             }
@@ -140,7 +155,33 @@ public class Register extends AppCompatActivity {
             myAlert.myDialog(this, R.drawable.doremon48,
                     "มีช่องว่าง", "กรุณากรอกทุกช่องคะ");
 
-        }
+        } else {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(false);
+            builder.setIcon(R.drawable.nobita48);
+            builder.setTitle("Please Confirm");
+            builder.setMessage(getResources().getString(R.string.id) + " = " + nameIDString + "\n" +
+                    getResources().getString(R.string.name1) + " = " + nameSurString + "\n" +
+                    getResources().getString(R.string.faculty) + " = " + codeMString + "\n" +
+                    getResources().getString(R.string.email) + " = " + emailString + "\n" +
+                    getResources().getString(R.string.username) + " = " + userString + "\n" +
+                    getResources().getString(R.string.password) + " = " + passwordString );
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            builder.show();
+
+        }   // if
 
     }   // clickSign
 
