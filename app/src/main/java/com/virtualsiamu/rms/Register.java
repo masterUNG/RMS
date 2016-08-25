@@ -13,12 +13,18 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class Register extends AppCompatActivity {
 
@@ -30,6 +36,7 @@ public class Register extends AppCompatActivity {
     private String nameIDString, nameSurString,
             codeMString, emailString,
             userString, passwordString;
+    private static final String urlPHP = "http://www.virtualsiamu.com/RMS/Identity/Identity_Add.php";
 
 
 
@@ -176,6 +183,7 @@ public class Register extends AppCompatActivity {
             builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    uploadValueToServer();
                     dialogInterface.dismiss();
                 }
             });
@@ -184,5 +192,35 @@ public class Register extends AppCompatActivity {
         }   // if
 
     }   // clickSign
+
+    private void uploadValueToServer() {
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        RequestBody requestBody = new FormEncodingBuilder()
+                .add("isAdd", "true")
+                .add("UserID", userString)
+                .add("Password", passwordString)
+                .add("NameID", nameIDString)
+                .add("Name", nameSurString)
+                .add("Code_M", codeMString)
+                .add("E_Mail", emailString)
+                .build();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.url(urlPHP).post(requestBody).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Log.d("25AugV2", "e ==> " + e.toString());
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                finish();
+            }
+        });
+
+
+    }   // uploadValue
 
 }   // Main Class
