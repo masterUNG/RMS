@@ -3,4 +3,11 @@
 
     <string name="member_login">Member login</string>
 
+    <string name="id">รหัสบุคลากร:</string>
+    <string name="name1">ชื่อ-นามสกุล:</string>
+    <string name="faculty">สาขาวิชา:</string>
+    <string name="email">Email:</string>
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
+
 </resources>
