@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Register extends AppCompatActivity {
 
@@ -23,7 +27,7 @@ public class Register extends AppCompatActivity {
     private String nameIDString, nameSurString,
             codeMString, emailString,
             userString, passwordString;
-    private String[] majorStrings;
+
 
 
     @Override
@@ -51,6 +55,9 @@ public class Register extends AppCompatActivity {
         private Context context;
         private Spinner mySpinner;
         private static final String urlJSON = "http://virtualsiamu.com/RMS/Major/Get_Major.php";
+        private String[] codeMStrings, nameMStrings, majorStrings;
+
+
 
         public SynMajorTABLE(Context context, Spinner mySpinner) {
             this.context = context;
@@ -81,6 +88,34 @@ public class Register extends AppCompatActivity {
             super.onPostExecute(s);
 
             Log.d("25AugV1", "JSON ==> " + s);
+
+            try {
+
+                JSONArray jsonArray = new JSONArray(s);
+
+                codeMStrings = new String[jsonArray.length()];
+                nameMStrings = new String[jsonArray.length()];
+                majorStrings = new String[jsonArray.length()];
+
+                for (int i=0;i<jsonArray.length();i+=1) {
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    codeMStrings[i] = jsonObject.getString("Code_M");
+                    nameMStrings[i] = jsonObject.getString("Name_M");
+                    majorStrings[i] = codeMStrings[i] + " " + nameMStrings[i];
+
+                }   // for
+
+                //Create Spinner
+                ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(context,
+                        android.R.layout.simple_list_item_1, majorStrings);
+                mySpinner.setAdapter(stringArrayAdapter);
+
+            } catch (Exception e) {
+                Log.d("25AugV1", "e onPost ==> " + e.toString());
+            }
+
 
         }   // onPost
 
