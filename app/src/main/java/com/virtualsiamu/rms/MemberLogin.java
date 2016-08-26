@@ -13,6 +13,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class MemberLogin extends AppCompatActivity {
 
     //Explicit
@@ -88,6 +91,31 @@ public class MemberLogin extends AppCompatActivity {
             super.onPostExecute(s);
 
             Log.d("26AugV2", "JSON ==> " + s);
+
+            try {
+
+                JSONArray jsonArray = new JSONArray(s);
+                for (int i=0;i<jsonArray.length();i++) {
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    switch (addValueAnInt) {
+
+
+                        case 0:
+                            myManage.addIdentity(jsonObject.getString("UserID"));
+                            break;
+                        case 1:
+                            myManage.addCorrectID(jsonObject.getString("CorrectID"));
+                            break;
+
+                    }   // switch
+
+                }   // for
+
+
+            } catch (Exception e) {
+                Log.d("26AugV2", "e onPost ==> " + e.toString());
+            }
 
         }   // onPost
 
