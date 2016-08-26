@@ -4,13 +4,23 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 
 public class MainActivity extends AppCompatActivity {
+
+    //Explicit
+    private WebView webView;
+    private static final String urlPHP = "http://www.virtualsiamu.com/RMS/Search/Search_Result.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        webView = (WebView) findViewById(R.id.webView);
+
+
+
     }   // Main Method
 
     public void clickMemberLogin(View view) {
