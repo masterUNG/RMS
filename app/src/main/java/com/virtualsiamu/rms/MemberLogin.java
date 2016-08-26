@@ -104,6 +104,10 @@ public class MemberLogin extends AppCompatActivity {
                             "User False", "ไม่มี " + myUserString + " ในฐานข้อมูลของเรา");
                 } else if (myPasswordString.equals(truePasswordString)) {
 
+                    Intent intent = new Intent(MemberLogin.this, ServiceActivity.class);
+                    intent.putExtra("UserID", myUserString);
+                    startActivity(intent);
+
                     Toast.makeText(context, "Welcome", Toast.LENGTH_SHORT).show();
 
                 } else {
