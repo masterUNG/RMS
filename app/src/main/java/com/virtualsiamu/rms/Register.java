@@ -172,11 +172,40 @@ public class Register extends AppCompatActivity {
             myAlert.myDialog(this, R.drawable.doremon48,
                     "รหัสบุคลากรผิด", "ไม่มี รหัสนี่ในฐานข้อมูล กรุณากรอก รหัสบุคลากรใหม่");
 
+        } else if (checkUser(userString)) {
+
+            MyAlert myAlert = new MyAlert();
+            myAlert.myDialog(this, R.drawable.doremon48,
+                    "User ซ้ำ", "กรุณากรอก User ใหม่ User ซ้ำ");
+
         } else {
-            Log.d("26AugV3", "รหัสบุคลากรถูกแล้ว");
+            confirmUpload();
         }
 
     }   // clickSign
+
+    private boolean checkUser(String userString) {
+
+        // True ==> User Duplicate
+        // False ==> User OK
+        boolean bolResult = false;
+
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM identityTABLE", null);
+        cursor.moveToFirst();
+        for (int i=0;i<cursor.getCount();i++) {
+
+            if (userString.equals(cursor.getString(cursor.getColumnIndex(MyManage.column_UserID)))) {
+                bolResult = true;
+            }
+
+            cursor.moveToNext();
+        }   // for
+        cursor.close();
+
+        return bolResult;
+    }
 
     private boolean checkNameID(String nameIDString) {
 
@@ -206,7 +235,7 @@ public class Register extends AppCompatActivity {
             cursor.moveToNext();
         }   // for
 
-
+        cursor.close();
         return bolResult;
     }
 
