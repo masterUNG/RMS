@@ -3,6 +3,8 @@ package com.virtualsiamu.rms;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -164,36 +166,78 @@ public class Register extends AppCompatActivity {
             myAlert.myDialog(this, R.drawable.doremon48,
                     "มีช่องว่าง", "กรุณากรอกทุกช่องคะ");
 
+        } else if (!checkNameID(nameIDString)) {
+
+            MyAlert myAlert = new MyAlert();
+            myAlert.myDialog(this, R.drawable.doremon48,
+                    "รหัสบุคลากรผิด", "ไม่มี รหัสนี่ในฐานข้อมูล กรุณากรอก รหัสบุคลากรใหม่");
+
         } else {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setCancelable(false);
-            builder.setIcon(R.drawable.nobita48);
-            builder.setTitle("Please Confirm");
-            builder.setMessage(getResources().getString(R.string.id) + " = " + nameIDString + "\n" +
-                    getResources().getString(R.string.name1) + " = " + nameSurString + "\n" +
-                    getResources().getString(R.string.faculty) + " = " + codeMString + "\n" +
-                    getResources().getString(R.string.email) + " = " + emailString + "\n" +
-                    getResources().getString(R.string.username) + " = " + userString + "\n" +
-                    getResources().getString(R.string.password) + " = " + passwordString );
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });
-            builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    uploadValueToServer();
-                    dialogInterface.dismiss();
-                }
-            });
-            builder.show();
-
-        }   // if
+            Log.d("26AugV3", "รหัสบุคลากรถูกแล้ว");
+        }
 
     }   // clickSign
+
+    private boolean checkNameID(String nameIDString) {
+
+        //False ==> NameID False,
+        //True ==> NameID True
+
+        boolean bolResult = false;
+
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM correctIDTABLE", null);
+        cursor.moveToFirst();
+
+        Log.d("26AugV3", "nameID ==> " + nameIDString);
+
+        for (int i=0;i<cursor.getCount();i++) {
+
+            Log.d("26AugV3", "รหัสที่อ่านได้ ==> " + cursor.getString(cursor.getColumnIndex(MyManage.column_CorrectID)));
+
+
+            if (nameIDString.equals(cursor.getString(cursor.getColumnIndex(MyManage.column_CorrectID)))) {
+
+                bolResult = true;
+
+            }   // if
+
+            cursor.moveToNext();
+        }   // for
+
+
+        return bolResult;
+    }
+
+    private void confirmUpload() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setIcon(R.drawable.nobita48);
+        builder.setTitle("Please Confirm");
+        builder.setMessage(getResources().getString(R.string.id) + " = " + nameIDString + "\n" +
+                getResources().getString(R.string.name1) + " = " + nameSurString + "\n" +
+                getResources().getString(R.string.faculty) + " = " + codeMString + "\n" +
+                getResources().getString(R.string.email) + " = " + emailString + "\n" +
+                getResources().getString(R.string.username) + " = " + userString + "\n" +
+                getResources().getString(R.string.password) + " = " + passwordString );
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                uploadValueToServer();
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+
+    }
 
     private void uploadValueToServer() {
 
