@@ -20,13 +20,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView"
             android:layout_weight="1"
-            android:src="@drawable/blue" />
+            android:src="@drawable/blue"
+            android:onClick="clickUpdateResource" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView3"
             android:layout_weight="1"
-            android:src="@drawable/green" />
+            android:src="@drawable/green"
+            android:onClick="clickCheckResource" />
     </LinearLayout>
 </RelativeLayout>
