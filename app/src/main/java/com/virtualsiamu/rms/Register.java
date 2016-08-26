@@ -58,6 +58,8 @@ public class Register extends AppCompatActivity {
 
     }   // Main Method
 
+
+
     //Create Inner Class
     private class SynMajorTABLE extends AsyncTask<Void, Void, String> {
 
