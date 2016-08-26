@@ -7,22 +7,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.virtualsiamu.rms.MemberLogin">
+    tools:context="com.virtualsiamu.rms.MemberLogin"
+    android:background="@drawable/bg7">
+
+
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:id="@+id/linearLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don&apos;t have an Account "
             android:id="@+id/textView"
             android:textSize="@dimen/h2"
-            android:textColor="@color/text1" />
+            android:textColor="@android:color/white"
+            android:paddingRight="10dp"
+            android:text="Don&apos;t have an account ! " />
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,4 +39,60 @@
             android:clickable="true"
             android:onClick="clickSignUp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:gravity="center_horizontal"
+        android:background="#3c000000"
+        android:weightSum="1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="322dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:src="@drawable/logonofill"
+            android:layout_weight="0.68" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/member_pleasesignin"
+            android:id="@+id/textView3"
+            android:textSize="@dimen/h1"
+            android:textStyle="bold"
+            android:textColor="@color/text"
+            android:textColorHint="@color/text" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:hint="User :"
+            android:inputType="text"
+            android:textColor="@color/text"
+            android:textColorHint="@color/text" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText2"
+            android:hint="Password :"
+            android:inputType="textPassword"
+            android:textColor="@color/text"
+            android:textColorHint="@color/text" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:layout_above="@+id/linearLayout"
+        android:text="@string/member_signin"
+        android:background="#0543c8"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

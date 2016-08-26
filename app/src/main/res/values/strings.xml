@@ -1,13 +1,15 @@
 <resources>
     <string name="app_name">RMS</string>
 
-    <string name="member_login">Member login</string>
-
     <string name="id">รหัสบุคลากร:</string>
     <string name="name1">ชื่อ-นามสกุล:</string>
     <string name="faculty">สาขาวิชา:</string>
     <string name="email">Email:</string>
     <string name="username">Username:</string>
     <string name="password">Password:</string>
+    <string name="member_pleasesignin">Please sign in</string>
+    <string name="member_login">Member login</string>
+    <string name="member_signin">Sign in</string>
+    <string name="member_signup">Sign Up</string>
 
 </resources>
