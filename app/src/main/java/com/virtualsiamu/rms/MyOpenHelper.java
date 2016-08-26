@@ -18,7 +18,7 @@ public class MyOpenHelper extends SQLiteOpenHelper{
             "_id integer primary key, " +
             "UserID text);";
 
-    private static final String create_CorrectID = "create table identityTABLE (" +
+    private static final String create_CorrectID = "create table correctIDTABLE (" +
             "_id integer primary key, " +
             "CorrectID text);";
 

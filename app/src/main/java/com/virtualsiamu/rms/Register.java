@@ -36,7 +36,7 @@ public class Register extends AppCompatActivity {
     private String nameIDString, nameSurString,
             codeMString, emailString,
             userString, passwordString;
-    private static final String urlPHP = "http://www.virtualsiamu.com/RMS/Identity/Identity_Add.php";
+    private static final String urlPHP = "http://www.virtualsiamu.com/RMS/Identity/Iden_Android.php";
 
 
 
@@ -197,7 +197,6 @@ public class Register extends AppCompatActivity {
 
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = new FormEncodingBuilder()
-                .add("isAdd", "true")
                 .add("UserID", userString)
                 .add("Password", passwordString)
                 .add("NameID", nameIDString)
@@ -211,11 +210,12 @@ public class Register extends AppCompatActivity {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                Log.d("25AugV2", "e ==> " + e.toString());
+                Log.d("26AugV1", "e ==> " + e.toString());
             }
 
             @Override
             public void onResponse(Response response) throws IOException {
+                Log.d("26AugV1", "Res ==> " + response.body().string());
                 finish();
             }
         });

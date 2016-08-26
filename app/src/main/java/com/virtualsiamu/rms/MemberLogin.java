@@ -7,11 +7,25 @@ import android.view.View;
 
 public class MemberLogin extends AppCompatActivity {
 
+    //Explicit
+    private MyManage myManage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_login);
+
+        myManage = new MyManage(this);
+
+        //Test Add Value
+        testAddValue();
+
     }   // Main Method
+
+    private void testAddValue() {
+        myManage.addIdentity("testUserID");
+        myManage.addCorrectID("testCorrectID");
+    }
 
     public void clickSignUp(View view) {
         startActivity(new Intent(MemberLogin.this, Register.class));
