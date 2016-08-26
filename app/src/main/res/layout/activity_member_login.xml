@@ -71,7 +71,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/edtUser"
             android:hint="User :"
             android:inputType="text"
             android:textColor="@color/text"
@@ -80,7 +80,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText2"
+            android:id="@+id/edtPass"
             android:hint="Password :"
             android:inputType="textPassword"
             android:textColor="@color/text"
@@ -94,5 +94,6 @@
         android:layout_above="@+id/linearLayout"
         android:text="@string/member_signin"
         android:background="#0543c8"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:onClick="clickSignInMember" />
 </RelativeLayout>
